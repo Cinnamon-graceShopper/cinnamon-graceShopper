@@ -7,14 +7,12 @@ const _fetchCoffees = (coffees) => ({
 	coffees,
 });
 
-export const fetchCoffees = () => {
+export const fetchCoffees = () => async (dispatch) => {
 	try {
-		return async (dispatch) => {
-			const { data } = await axios.get("/api/coffees");
-			dispatch(_fetchCoffees(data));
-		};
+		const { data } = await axios.get("/api/coffees");
+		dispatch(_fetchCoffees(data));
 	} catch (err) {
-		console.log(err);
+		console.error(err);
 	}
 };
 

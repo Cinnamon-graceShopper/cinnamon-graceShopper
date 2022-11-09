@@ -14,13 +14,15 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 					<a href='#' onClick={handleClick}>
 						Logout
 					</a>
+
+					{/* Added path '/coffees' to Navbar */}
+					<Link to='/coffees'>Coffees</Link>
 				</div>
 			) : (
 				<div>
 					{/* The navbar will show these links before you log in */}
 					<Link to='/login'>Login</Link>
 					<Link to='/signup'>Sign Up</Link>
-
 					{/* Added path '/coffees' to Navbar */}
 					<Link to='/coffees'>Coffees</Link>
 				</div>
