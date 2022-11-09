@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Coffee = (props) => {
-	const { image, productName, price } = props.coffee;
+	const { image, productName, price, id } = props.coffee;
 	return (
 		<div>
 			<h3>{productName}</h3>
 			<h4>{price}</h4>
-			<img src={image} style={{ height: 300, width: 300 }} />
+			<Link to={`coffees/${id}`}>
+				<img src={image} style={{ height: 300, width: 300 }} />
+			</Link>
 		</div>
 	);
 };

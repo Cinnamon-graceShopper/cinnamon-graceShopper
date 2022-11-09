@@ -39,4 +39,4 @@ const Coffee = db.define("coffee", {
 	},
 });
 
-module.exports = { Coffee };
+module.exports = Coffee;
