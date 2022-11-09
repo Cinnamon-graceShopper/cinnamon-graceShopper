@@ -5,10 +5,12 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import allCoffeesReducer from "./allCoffees";
+import singleCoffeeReducer from "./singleCoffee";
 
 const reducer = combineReducers({
 	auth,
 	coffees: allCoffeesReducer,
+	coffee: singleCoffeeReducer,
 });
 const middleware = composeWithDevTools(
 	applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

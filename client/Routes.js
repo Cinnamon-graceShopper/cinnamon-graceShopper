@@ -5,6 +5,7 @@ import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import { me } from "./store";
 import CoffeeList from "./components/CoffeeList";
+import SingleCoffee from "./components/SingleCoffee";
 
 /**
  * COMPONENT
@@ -32,7 +33,9 @@ class Routes extends Component {
 						<Route path='/login' component={Login} />
 						<Route path='/signup' component={Signup} />
 						{/* Included a path /coffees w/ CoffeeList component */}
-						<Route path='/coffees' component={CoffeeList} />
+						<Route exact path='/coffees' component={CoffeeList} />
+						{/* Included a path /coffees/id w/ SingleCoffee component */}
+						<Route path='/coffees/:id' component={SingleCoffee} />
 					</Switch>
 				)}
 			</div>
