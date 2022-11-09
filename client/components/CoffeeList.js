@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCoffees } from "../store/allCoffees";
+import Coffee from "./Coffee";
 
 export class CoffeeList extends Component {
 	componentDidMount() {
@@ -12,7 +13,11 @@ export class CoffeeList extends Component {
 		return (
 			<div>
 				<h1>Check out our selection of coffees!</h1>
-				<div></div>
+				<div>
+					{coffees.map((coffee) => (
+						<Coffee key={coffee.id} coffee={coffee} />
+					))}
+				</div>
 			</div>
 		);
 	}
