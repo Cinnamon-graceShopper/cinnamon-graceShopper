@@ -17,11 +17,25 @@ export const addCart = (id) => async (dispatch) => {
 };
 
 const initialState = [];
+let coffeeIndex;
 
 export default function addCartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CART:
-      return action.coffee;
+      if (state.length) {
+        coffeeIndex = state.findIndex(
+          (coffee) => coffee.id === action.coffee.id
+        );
+        console.log(">>>>>", state);
+        console.log("****", action.coffee.id);
+        if (coffeeIndex >= 0) {
+          state[coffeeIndex].cartQuantity += 1;
+        }
+      } else {
+        console.log(state);
+        return [...state, { ...action, cartQuantity: 1 }];
+      }
+      return state;
     default:
       return state;
   }

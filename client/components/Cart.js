@@ -21,7 +21,7 @@ export class Cart extends React.Component {
 }
 
 const mapState = (state) => ({
-  cart: state.coffee,
+  cart: state.coffees,
   auth: state.auth,
   // CHECK IF ISSUES ^^
 });
