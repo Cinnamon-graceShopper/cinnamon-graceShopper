@@ -7,9 +7,9 @@ export class Cart extends React.Component {
     super();
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick(coffee) {
-    console.log(coffee);
-    this.props.addCart(coffee.id);
+  handleClick() {
+    console.log(this.props.params);
+    // this.props.addCart(coffee.id);
   }
   render() {
     return (
