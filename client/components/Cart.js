@@ -1,10 +1,24 @@
 import React from "react";
-import { connect } from "../../server/api/coffees";
+import { connect } from "react-redux";
 import { addCart } from "../store/Cart";
 
-const Cart = (props) => {
-  return <div></div>;
-};
+export class Cart extends React.Component {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(coffee) {
+    console.log(coffee);
+    this.props.addCart(coffee.id);
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Add to Cart</button>
+      </div>
+    );
+  }
+}
 
 const mapState = (state) => ({
   cart: state.coffee,
