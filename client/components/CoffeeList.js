@@ -18,7 +18,7 @@ export class CoffeeList extends Component {
           {coffees.map((coffee) => (
             <div key={coffee.id}>
               <Coffee coffee={coffee} />
-              <Cart />
+              <Cart coffeeId={coffee.id} />
             </div>
           ))}
         </div>

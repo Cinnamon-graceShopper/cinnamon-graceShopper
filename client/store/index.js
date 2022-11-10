@@ -12,7 +12,7 @@ const reducer = combineReducers({
   auth,
   coffees: allCoffeesReducer,
   coffee: singleCoffeeReducer,
-  addCart: addCartReducer,
+  cart: addCartReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

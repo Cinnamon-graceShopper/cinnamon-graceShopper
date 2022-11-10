@@ -8,8 +8,8 @@ export class Cart extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    console.log(this.props.params);
-    // this.props.addCart(coffee.id);
+    console.log(this.props);
+    this.props.addCart(this.props.coffeeId);
   }
   render() {
     return (
@@ -22,6 +22,7 @@ export class Cart extends React.Component {
 
 const mapState = (state) => ({
   cart: state.coffee,
+  auth: state.auth,
   // CHECK IF ISSUES ^^
 });
 
