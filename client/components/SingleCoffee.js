@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCoffee } from "../store/singleCoffee";
-import Cart from "./Cart";
+import Cart from "./AddToCart";
 
 class SingleCoffee extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class SingleCoffee extends Component {
         <h3>{productName}</h3>
         <h4>{description}</h4>
         <h4>
-          {price} <Cart />
+          {price} <Cart coffeeId={this.props.match.params.id} />
         </h4>
       </div>
     );
