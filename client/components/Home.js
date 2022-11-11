@@ -1,15 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
 /**
  * COMPONENT
  */
 export const Home = (props) => {
-	const { username } = props;
+	const { user } = props;
 
 	return (
 		<div>
-			<h3>Welcome, {username.split("@")[0]}</h3>
+			<h3>Welcome, {user.firstName}</h3>
 		</div>
 	);
 };
@@ -19,7 +19,7 @@ export const Home = (props) => {
  */
 const mapState = (state) => {
 	return {
-		username: state.auth.username,
+		user: state.auth,
 	};
 };
 
