@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signup } from "../store/user";
+//import { authenticate } from "../store/user";
 
 /**
  * COMPONENT
@@ -70,6 +71,7 @@ const mapDispatch = (dispatch) => {
 			const firstName = evt.target.firstName.value;
 			const lastName = evt.target.lastName.value;
 			dispatch(signup(username, password, firstName, lastName, formName));
+			//dispatch(authenticate(username, password, formName));
 		},
 	};
 };

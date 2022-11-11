@@ -35,8 +35,10 @@ export const authenticate =
 				username,
 				password,
 			});
+			console.log("Authenticate Token", res.data);
 			window.localStorage.setItem(TOKEN, res.data.token);
 			dispatch(me());
+			history.push("/home");
 		} catch (authError) {
 			return dispatch(setAuth({ error: authError }));
 		}

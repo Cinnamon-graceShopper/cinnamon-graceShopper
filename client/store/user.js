@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../history";
 
 const TOKEN = "token";
 
@@ -39,7 +40,7 @@ export const signup =
 			window.localStorage.setItem(TOKEN, res.data.token);
 			dispatch(me());
 		} catch (authError) {
-			return dispatch(setAuth({ error: authError }));
+			return dispatch(setUser({ error: authError }));
 		}
 	};
 
