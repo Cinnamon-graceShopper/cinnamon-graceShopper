@@ -10,11 +10,10 @@ import singleCoffeeReducer from "./singleCoffee";
 import addCartReducer from "./Cart";
 
 const reducer = combineReducers({
-	auth,
-	user,
-	coffees: allCoffeesReducer,
-	coffee: singleCoffeeReducer,
-  addCart: addCartReducer,
+  auth,
+  coffees: allCoffeesReducer,
+  coffee: singleCoffeeReducer,
+  cart: addCartReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

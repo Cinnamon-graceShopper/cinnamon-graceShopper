@@ -17,11 +17,18 @@ export const addCart = (id) => async (dispatch) => {
 };
 
 const initialState = [];
+let coffeeIndex, tempProduct;
 
 export default function addCartReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CART:
-      return action.coffee;
+      tempProduct = { ...action, cartQuantity: 1 };
+      coffeeIndex = state.findIndex(
+        (item) => item.coffee.id === action.coffee.id
+      );
+      if (coffeeIndex >= 0) state[coffeeIndex].cartQuantity += 1;
+      else return [...state, tempProduct];
+      return state;
     default:
       return state;
   }

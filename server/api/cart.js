@@ -27,4 +27,12 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const post = await Order.create();
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
