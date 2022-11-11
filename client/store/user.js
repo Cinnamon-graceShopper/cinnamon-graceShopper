@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { setAuth } from "./auth";
 
 const TOKEN = "token";
 
@@ -24,7 +25,7 @@ export const me = () => async (dispatch) => {
 				authorization: token,
 			},
 		});
-		return dispatch(setUser(res.data));
+		return dispatch(setAuth(res.data));
 	}
 };
 
