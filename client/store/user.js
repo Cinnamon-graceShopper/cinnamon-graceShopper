@@ -1,17 +1,18 @@
 import axios from "axios";
 import history from "../history";
+import { setAuth } from "./auth";
 
 const TOKEN = "token";
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = "SET_AUTH";
+const SET_USER = "SET_USER";
 
 /**
  * ACTION CREATORS
  */
-export const setAuth = (auth) => ({ type: SET_AUTH, auth });
+const setUser = (user) => ({ type: SET_USER, user });
 
 /**
  * THUNK CREATORS
@@ -28,38 +29,29 @@ export const me = () => async (dispatch) => {
 	}
 };
 
-export const authenticate =
-	(username, password, method) => async (dispatch) => {
+export const signup =
+	(username, password, firstName, lastName, method) => async (dispatch) => {
 		try {
 			const res = await axios.post(`/auth/${method}`, {
 				username,
 				password,
+				firstName,
+				lastName,
 			});
-			console.log("Authenticate Token", res.data);
 			window.localStorage.setItem(TOKEN, res.data.token);
 			dispatch(me());
-			history.push("/home");
 		} catch (authError) {
-			return dispatch(setAuth({ error: authError }));
+			return dispatch(setUser({ error: authError }));
 		}
 	};
-
-export const logout = () => {
-	window.localStorage.removeItem(TOKEN);
-	history.push("/login");
-	return {
-		type: SET_AUTH,
-		auth: {},
-	};
-};
 
 /**
  * REDUCER
  */
 export default function (state = {}, action) {
 	switch (action.type) {
-		case SET_AUTH:
-			return action.auth;
+		case SET_USER:
+			return action.user;
 		default:
 			return state;
 	}
