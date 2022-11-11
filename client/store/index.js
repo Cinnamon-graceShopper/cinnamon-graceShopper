@@ -4,14 +4,16 @@ import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
+import user from "./user";
 import allCoffeesReducer from "./allCoffees";
 import singleCoffeeReducer from "./singleCoffee";
 import addCartReducer from "./Cart";
 
 const reducer = combineReducers({
-  auth,
-  coffees: allCoffeesReducer,
-  coffee: singleCoffeeReducer,
+	auth,
+	user,
+	coffees: allCoffeesReducer,
+	coffee: singleCoffeeReducer,
   addCart: addCartReducer,
 });
 const middleware = composeWithDevTools(
