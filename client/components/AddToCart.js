@@ -25,7 +25,7 @@ export class Cart extends React.Component {
         localStorage.setItem("cart", JSON.stringify(this.cartArray));
       }
     } else {
-      console.log("uh oh");
+      // database
     }
   }
   render() {
