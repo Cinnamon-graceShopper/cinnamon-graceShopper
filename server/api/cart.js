@@ -27,16 +27,24 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/:id/:productId", async (req, res, next) => {
+router.post("/:id/:coffeeId", async (req, res, next) => {
   try {
-    const currentOrder = await Order.findOne({
+    let orderId;
+    const currentOrder = await User.findOne({
+      where: {
+        id: req.params.id,
+      },
       include: {
-        model: User,
+        model: Order,
         where: {
-          id: req.params.id,
+          completed: false,
         },
       },
     });
+    orderId = currentOrder.id;
+    console.log(">>>>", orderId);
+    console.log(currentOrder.orders[0].userId);
+    res.send(currentOrder);
   } catch (error) {
     next(error);
   }

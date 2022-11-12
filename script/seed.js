@@ -225,6 +225,14 @@ const orders = [
     completed: true,
     userId: 1,
   },
+  {
+    completed: false,
+    userId: 1,
+  },
+  {
+    completed: false,
+    userId: 2,
+  },
 ];
 
 /**
