@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addCart } from "../store/Cart";
+import { createCart } from "../store/Cart";
 
 export class Cart extends React.Component {
   constructor() {
@@ -9,9 +10,10 @@ export class Cart extends React.Component {
     this.cartArray = [];
   }
   handleClick() {
-    const { isLoggedIn } = this.props;
-    this.props.addCart(this.props.coffeeId);
+    const { isLoggedIn, id } = this.props;
+
     if (!isLoggedIn) {
+        this.props.addCart(this.props.coffeeId);
       let item = this.props.cart.filter(
         (item) => item.id === this.props.coffeeId
       )[0];
@@ -25,7 +27,13 @@ export class Cart extends React.Component {
         localStorage.setItem("cart", JSON.stringify(this.cartArray));
       }
     } else {
-      console.log("uh oh");
+      console.log(this.props.coffeeId)
+      this.props.createCart({
+        completed: false,
+        userId: id,
+        date: new Date().toLocaleDateString(),
+        coffeeId: this.props.coffeeId
+      })
     }
   }
   render() {
@@ -40,10 +48,13 @@ export class Cart extends React.Component {
 const mapState = (state) => ({
   cart: state.coffees,
   isLoggedIn: !!state.auth.id,
+  postToCart: state.cart,
+  id: state.auth.id
 });
 
 const mapDispatch = (dispatch) => ({
   addCart: (id) => dispatch(addCart(id)),
+  createCart: (cart) => dispatch(createCart(cart))
 });
 
 export default connect(mapState, mapDispatch)(Cart);

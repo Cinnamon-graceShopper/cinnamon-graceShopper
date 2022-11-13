@@ -6,8 +6,11 @@ const Order = require('./models/Order.js')
 const OrderCoffee = require('./models/OrderCoffee.js')
 
 //associations could go here!
-User.hasMany(Order)
 Order.belongsTo(User)
+User.hasMany(Order)
+
+Coffee.hasMany(Order)
+
 Order.belongsToMany(Coffee,{
   through: OrderCoffee
 })

@@ -216,15 +216,19 @@ const users = [
     password: "password",
     firstName: "OtherDummy",
     lastName: "User",
-    role: "ADMIN",
+    Role: "ADMIN",
   },
 ];
 
+
+//todo fix association
 const orders = [
-  {
-    completed: true,
-    userId: 1,
-  },
+  // {
+  //   completed: false,
+  //    date: new Date(),
+  //   // userId: 1
+  // },
+
 ];
 
 /**
@@ -243,14 +247,14 @@ async function seed() {
   );
 
   await Promise.all(
-    users.map((user) => {
-      return User.create(user);
+    orders.map((order) => {
+      return Order.create(order);
     })
   );
 
   await Promise.all(
-    orders.map((order) => {
-      return Order.create(order);
+    users.map((user) => {
+      return User.create(user);
     })
   );
 

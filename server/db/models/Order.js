@@ -12,6 +12,8 @@ const Order = db.define("order", {
 	date: {
 		type: Sequelize.DATE,
 	},
+},{
+  timestamps: false
 });
 
 module.exports = Order;

@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import { getCart } from '../store/Cart';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+
+const Navbar = ({ handleClick, isLoggedIn }) =>{
+
+// useEffect(()=>{
+//     getCart()
+// }, [])
+
+return (
   <div>
     <h1>Cawfee Tawk Shawp</h1>
     <nav>
@@ -30,7 +38,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </nav>
     <hr />
   </div>
-);
+)};
 
 /**
  * CONTAINER
@@ -38,11 +46,13 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    // cartItms: state.cart
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
+    // getCart: () => getCart(),
     handleClick() {
       dispatch(logout());
     },

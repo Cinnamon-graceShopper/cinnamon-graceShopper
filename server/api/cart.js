@@ -29,7 +29,9 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const post = await Order.create();
+    const post = await Order.create(req.body);
+    res.send(post)
+//CHECK
   } catch (error) {
     next(error);
   }
