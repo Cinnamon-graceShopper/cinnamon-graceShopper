@@ -58,8 +58,8 @@ export default function addCartReducer(state = initialState, action) {
         (item) => item.coffee.id === action.coffee.id
       );
       if (coffeeIndex >= 0) state[coffeeIndex].cartQuantity += 1;
-      else [...state, tempProduct];
-      return state;
+      else return [...state, tempProduct];
+      return state
       case CREATE_CART:
         return [...state, action.coffee]
         // case GET_CART:
