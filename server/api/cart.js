@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Order, User, Coffee } = require("../db");
+const { Order, User, Coffee, OrderCoffee } = require("../db");
 
 router.get("/", async (req, res, next) => {
   // MIGHT NOT NEED THIS BECAUSE ANY USER CAN SEE ALL THE CARTS
@@ -42,9 +42,14 @@ router.post("/:id/:coffeeId", async (req, res, next) => {
       },
     });
     orderId = currentOrder.id;
-    console.log(">>>>", orderId);
-    console.log(currentOrder.orders[0].userId);
-    res.send(currentOrder);
+    // console.log(">>>>", orderId);
+    // console.log(currentOrder.orders[0].userId);
+    const [coffee] = await OrderCoffee.create({
+      coffeeId: req.params.coffeeId,
+      orderId: orderId,
+      quantity: 1,
+    });
+    res.send(coffee);
   } catch (error) {
     next(error);
   }
