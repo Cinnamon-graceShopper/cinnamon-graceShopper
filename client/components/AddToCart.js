@@ -32,7 +32,7 @@ export class Cart extends React.Component {
         completed: false,
         userId: id,
         date: new Date().toLocaleDateString(),
-        coffeeId: this.props.coffeeId
+
       })
     }
   }

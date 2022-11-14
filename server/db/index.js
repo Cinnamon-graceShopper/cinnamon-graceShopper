@@ -9,7 +9,7 @@ const OrderCoffee = require('./models/OrderCoffee.js')
 Order.belongsTo(User)
 User.hasMany(Order)
 
-Coffee.hasMany(Order)
+// Coffee.hasMany(Order)
 
 Order.belongsToMany(Coffee,{
   through: OrderCoffee

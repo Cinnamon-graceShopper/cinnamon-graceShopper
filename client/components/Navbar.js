@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
@@ -7,9 +7,6 @@ import { getCart } from '../store/Cart';
 
 const Navbar = ({ handleClick, isLoggedIn }) =>{
 
-// useEffect(()=>{
-//     getCart()
-// }, [])
 
 return (
   <div>
@@ -25,6 +22,7 @@ return (
 
           {/* Added path '/coffees' to Navbar */}
           <Link to="/coffees">Coffees</Link>
+          <Link to="/cart">Cart</Link>
         </div>
       ) : (
         <div>
@@ -46,13 +44,11 @@ return (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-    // cartItms: state.cart
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    // getCart: () => getCart(),
     handleClick() {
       dispatch(logout());
     },
