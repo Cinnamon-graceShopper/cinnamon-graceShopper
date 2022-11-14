@@ -13,7 +13,9 @@ export class CoffeeList extends Component {
     const { coffees } = this.props;
     return (
       <div>
-        <h1>Check out our selection of coffees!</h1>
+        <h1 className="text-3xl font-bold underline">
+          Check out our selection of coffees!
+        </h1>
         <div>
           {coffees.map((coffee) => (
             <div key={coffee.id}>

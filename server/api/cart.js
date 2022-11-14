@@ -44,12 +44,13 @@ router.post("/:id/:coffeeId", async (req, res, next) => {
     orderId = currentOrder.id;
     // console.log(">>>>", orderId);
     // console.log(currentOrder.orders[0].userId);
-    const [coffee] = await OrderCoffee.create({
-      coffeeId: req.params.coffeeId,
-      orderId: orderId,
-      quantity: 1,
-    });
-    res.send(coffee);
+    // const coffee = await OrderCoffee.create({
+    //   coffeeId: 5,
+    //   orderId: 5,
+    //   quantity: 1,
+    //   price: "1.99",
+    // });
+    res.send(currentOrder);
   } catch (error) {
     next(error);
   }
