@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addCart } from '../store/Cart';
+import { createCart } from '../store/Cart';
 
 export class Cart extends React.Component {
 	constructor() {
@@ -9,31 +10,30 @@ export class Cart extends React.Component {
 		this.cartArray = [];
 	}
 	handleClick() {
-		const { isLoggedIn } = this.props;
-		this.props.addCart(this.props.coffeeId);
+		const { isLoggedIn, id } = this.props;
+		let localArray;
 		if (!isLoggedIn) {
-			let hash = {};
-			let quantity = 0;
-			let item = this.props.cart.filter(
-				(item) => item.id === this.props.coffeeId
-			)[0];
-			const getCarStorage = localStorage.getItem('cart');
-			if (getCarStorage) {
-				this.cartArray = JSON.parse(localStorage.getItem('cart'));
-				const filteredArr = this.cartArray.filter((coffee) => {
-					return coffee.id === 1;
-				});
-				console.log(filteredArr);
-
-				this.cartArray.push(item);
-
-				localStorage.setItem('cart', JSON.stringify(this.cartArray));
-			} else {
-				this.cartArray.push(item);
-				localStorage.setItem('cart', JSON.stringify(this.cartArray));
+			this.props.addCart(this.props.coffeeId);
+			const localCart = localStorage.getItem('cart');
+			if (localCart) {
+				localArray = JSON.parse(localCart);
+				// localArray.map((item) => {
+				// 	console.log(
+				// 		'totalQuntity:',
+				// 		item.cartQuantity,
+				// 		'coffeeId:',
+				// 		item.coffee.id,
+				// 		'name:',
+				// 		item.coffee.productName
+				// 	);
+				// });
 			}
 		} else {
-			console.log('uh oh');
+			this.props.createCart({
+				completed: false,
+				userId: id,
+				date: new Date().toLocaleDateString(),
+			});
 		}
 	}
 	render() {
@@ -46,12 +46,15 @@ export class Cart extends React.Component {
 }
 
 const mapState = (state) => ({
-	cart: state.coffees,
+	cart: state.cart,
 	isLoggedIn: !!state.auth.id,
+	postToCart: state.cart,
+	id: state.auth.id,
 });
 
 const mapDispatch = (dispatch) => ({
 	addCart: (id) => dispatch(addCart(id)),
+	createCart: (cart) => dispatch(createCart(cart)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);

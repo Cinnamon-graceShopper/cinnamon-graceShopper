@@ -7,14 +7,14 @@ import auth from './auth';
 import allCoffeesReducer from './allCoffees';
 import singleCoffeeReducer from './singleCoffee';
 import addCartReducer from './Cart';
-import quantityReducer from './orderQuantity';
+//import quantityReducer from './orderQuantity';
 
 const reducer = combineReducers({
 	auth,
 	coffees: allCoffeesReducer,
 	coffee: singleCoffeeReducer,
 	cart: addCartReducer,
-	quantity: quantityReducer,
+	//quantity: quantityReducer,
 });
 const middleware = composeWithDevTools(
 	applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
