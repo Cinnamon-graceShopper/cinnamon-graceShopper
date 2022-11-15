@@ -57,9 +57,14 @@ export default function addCartReducer(state = initialState, action) {
       coffeeIndex = state.findIndex(
         (item) => item.coffee.id === action.coffee.id
       );
-      if (coffeeIndex >= 0) state[coffeeIndex].cartQuantity += 1;
-      else return [...state, tempProduct];
-      return state
+      if(coffeeIndex >= 0){
+        state[coffeeIndex].cartQuantity += 1;
+        localStorage.setItem("cart", JSON.stringify([...state]))
+      } else{
+        localStorage.setItem("cart", JSON.stringify([...state, tempProduct]))
+        return [...state, tempProduct];
+      }
+      return [...state]
       case CREATE_CART:
         return [...state, action.coffee]
         // case GET_CART:
