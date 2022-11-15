@@ -12,13 +12,21 @@ export class Cart extends React.Component {
 		const { isLoggedIn } = this.props;
 		this.props.addCart(this.props.coffeeId);
 		if (!isLoggedIn) {
+			let hash = {};
+			let quantity = 0;
 			let item = this.props.cart.filter(
 				(item) => item.id === this.props.coffeeId
 			)[0];
 			const getCarStorage = localStorage.getItem('cart');
 			if (getCarStorage) {
 				this.cartArray = JSON.parse(localStorage.getItem('cart'));
+				const filteredArr = this.cartArray.filter((coffee) => {
+					return coffee.id === 1;
+				});
+				console.log(filteredArr);
+
 				this.cartArray.push(item);
+
 				localStorage.setItem('cart', JSON.stringify(this.cartArray));
 			} else {
 				this.cartArray.push(item);
