@@ -1,33 +1,38 @@
-const router = require("express").Router();
-const { Order, User, Coffee } = require("../db");
+const router = require('express').Router();
+const { Order, User, Coffee, OrderCoffee } = require('../db');
 
-router.get("/", async (req, res, next) => {
-  // MIGHT NOT NEED THIS BECAUSE ANY USER CAN SEE ALL THE CARTS
+const requireToken = async (req, res, next) => {
   try {
-    const carts = await Order.findAll();
-    res.send(carts);
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
   } catch (error) {
     next(error);
   }
-});
+};
 
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const cart = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        completed: false,
+      },
       include: {
-        model: User,
-        where: {
-          id: req.params.id,
-        },
+        model: Coffee,
+        through: OrderCoffee,
       },
     });
+
     res.send(cart);
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/", async (req, res, next) => {
+// We will use this route to eventually create the OrderCoffee through table instances
+router.post('/', async (req, res, next) => {
   try {
     const post = await Order.create();
   } catch (error) {
