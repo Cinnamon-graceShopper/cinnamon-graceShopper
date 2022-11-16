@@ -54,6 +54,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/coffees">
                 <Button variant="contained">Coffees</Button>
               </Link>
+              <Link to='/order'>Order</Link>
             </ProductList>
           </div>
         )}
@@ -67,17 +68,17 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  * CONTAINER
  */
 const mapState = (state) => {
-  return {
-    isLoggedIn: !!state.auth.id,
-  };
+	return {
+		isLoggedIn: !!state.auth.id,
+	};
 };
 
 const mapDispatch = (dispatch) => {
-  return {
-    handleClick() {
-      dispatch(logout());
-    },
-  };
+	return {
+		handleClick() {
+			dispatch(logout());
+		},
+	};
 };
 
 export default connect(mapState, mapDispatch)(Navbar);

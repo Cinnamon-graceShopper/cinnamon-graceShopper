@@ -5,10 +5,12 @@ import Coffee from "./Coffee";
 import Cart from "./AddToCart";
 import { Grid } from "@mui/material";
 
+
 export class CoffeeList extends Component {
-  componentDidMount() {
-    this.props.getCoffees();
-  }
+	componentDidMount() {
+		this.props.getCoffees();
+	}
+
 
   render() {
     const { coffees } = this.props;
@@ -37,11 +39,11 @@ export class CoffeeList extends Component {
 }
 
 const mapState = (state) => ({
-  coffees: state.coffees,
+	coffees: state.coffees,
 });
 
 const mapDispatch = (dispatch) => ({
-  getCoffees: () => dispatch(fetchCoffees()),
+	getCoffees: () => dispatch(fetchCoffees()),
 });
 
 export default connect(mapState, mapDispatch)(CoffeeList);

@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
-import { addCart } from "../store/Cart";
+import { addCart, createCart } from "../store/Cart";
 
 export class Cart extends React.Component {
   constructor() {
@@ -10,25 +10,22 @@ export class Cart extends React.Component {
     this.cartArray = [];
   }
   handleClick() {
-    const { isLoggedIn } = this.props;
-    this.props.addCart(this.props.coffeeId);
-    if (!isLoggedIn) {
-      let item = this.props.cart.filter(
-        (item) => item.id === this.props.coffeeId
-      )[0];
-      const getCarStorage = localStorage.getItem("cart");
-      if (getCarStorage) {
-        this.cartArray = JSON.parse(localStorage.getItem("cart"));
-        this.cartArray.push(item);
-        localStorage.setItem("cart", JSON.stringify(this.cartArray));
-      } else {
-        this.cartArray.push(item);
-        localStorage.setItem("cart", JSON.stringify(this.cartArray));
-      }
-    } else {
-      console.log("uh oh");
-    }
-  }
+		const { isLoggedIn, id } = this.props;
+		let localArray;
+		if (!isLoggedIn) {
+			this.props.addCart(this.props.coffeeId);
+			const localCart = localStorage.getItem('cart');
+			if (localCart) {
+				localArray = JSON.parse(localCart);
+			}
+		} else {
+			this.props.createCart({
+				completed: false,
+				userId: id,
+				date: new Date().toLocaleDateString(),
+			});
+		}
+	}
   render() {
     return (
       <div>
@@ -42,12 +39,15 @@ export class Cart extends React.Component {
 }
 
 const mapState = (state) => ({
-  cart: state.coffees,
-  isLoggedIn: !!state.auth.id,
+	cart: state.cart,
+	isLoggedIn: !!state.auth.id,
+	postToCart: state.cart,
+	id: state.auth.id,
 });
 
 const mapDispatch = (dispatch) => ({
-  addCart: (id) => dispatch(addCart(id)),
+	addCart: (id) => dispatch(addCart(id)),
+	createCart: (cart) => dispatch(createCart(cart)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
