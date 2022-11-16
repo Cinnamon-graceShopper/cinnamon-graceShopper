@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import { connect } from "react-redux";
 import { addCart } from "../store/Cart";
@@ -31,7 +32,10 @@ export class Cart extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleClick}>Add to Cart</button>
+        <Button variant="contained" color="success" onClick={this.handleClick}>
+          Add to Cart
+        </Button>
+        {/* <button onClick={this.handleClick}>Add to Cart</button> */}
       </div>
     );
   }
