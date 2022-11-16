@@ -3,6 +3,7 @@ import axios from 'axios';
 const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 
 const _addCart = (coffee) => ({
 	type: ADD_CART,
@@ -16,6 +17,11 @@ const _createCart = (coffee) => ({
 
 export const _removeProduct = (coffee) => ({
 	type: REMOVE_PRODUCT,
+	coffee,
+});
+
+const _decreaseQuantity = (coffee) => ({
+	type: DECREASE_QUANTITY,
 	coffee,
 });
 
@@ -53,6 +59,11 @@ export default function addCartReducer(state = initialState, action) {
 				return [...state, tempProduct];
 			}
 			return [...state];
+		case REMOVE_PRODUCT:
+			const newArr = [...state];
+			const arr = newArr.filter((item) => item.id !== action.coffee.id);
+			localStorage.setItem('cart', JSON.stringify(arr));
+			return arr;
 		default:
 			return state;
 	}

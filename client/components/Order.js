@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addCart, _removeProduct, incrementQuantity } from '../store/Cart';
+import { addCart, _removeProduct } from '../store/Cart';
 
 export class Order extends Component {
 	render() {
