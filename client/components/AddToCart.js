@@ -17,16 +17,6 @@ export class Cart extends React.Component {
 			const localCart = localStorage.getItem('cart');
 			if (localCart) {
 				localArray = JSON.parse(localCart);
-				// localArray.map((item) => {
-				// 	console.log(
-				// 		'totalQuntity:',
-				// 		item.cartQuantity,
-				// 		'coffeeId:',
-				// 		item.coffee.id,
-				// 		'name:',
-				// 		item.coffee.productName
-				// 	);
-				// });
 			}
 		} else {
 			this.props.createCart({

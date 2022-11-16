@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { incrementQuantity, decrementQuantity } from '../store/Cart';
+import { addCart, _removeProduct, incrementQuantity } from '../store/Cart';
 
 export class Order extends Component {
 	render() {
@@ -8,8 +8,8 @@ export class Order extends Component {
 			typeof localStorage.cart === 'undefined'
 				? null
 				: JSON.parse(localStorage.cart);
-		//console.log(this.prop);
-		const { increment } = this.props;
+		const { addCart, removeProduct, increment } = this.props;
+		console.log(this.props.cart);
 		return (
 			<div>
 				{cart === null ? (
@@ -29,7 +29,8 @@ export class Order extends Component {
 									<small>{product.description}</small>
 									<br />
 									<small>Order Quantity: {product.cartQuantity}</small>
-									<button onClick={() => increment(product.id)}>+</button>
+									<button onClick={() => addCart(product.id)}>+</button>
+									<button onClick={() => removeProduct(product)}>REMOVE</button>
 									<br />
 									<br />
 								</div>
@@ -43,12 +44,13 @@ export class Order extends Component {
 }
 
 const mapState = (state) => ({
-	cart: state.coffees,
+	cart: state.cart,
 });
 
 const mapDispatch = (dispatch) => ({
+	addCart: (id) => dispatch(addCart(id)),
+	removeProduct: (product) => dispatch(_removeProduct(product)),
 	increment: (coffeeId) => dispatch(incrementQuantity(coffeeId)),
-	decrement: () => dispatch(decrementQuantity()),
 });
 
 export default connect(mapState, mapDispatch)(Order);
