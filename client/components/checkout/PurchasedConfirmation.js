@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function PurchaseConfirmed() {
-	return <div>Thank you for your purchase!</div>;
+export default class PurchaseConfirmed extends Component {
+	render() {
+		return (
+			<div>
+				<h1>Thank you for your purchase!</h1>
+			</div>
+		);
+	}
 }
-
-export default PurchaseConfirmed;

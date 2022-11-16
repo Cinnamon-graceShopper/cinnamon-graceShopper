@@ -10,7 +10,11 @@ export class Order extends Component {
 				? []
 				: JSON.parse(localStorage.cart);
 		const { addCart, removeProduct, increment } = this.props;
-		console.log(this.props.cart);
+		const TotaQuantity = cart.reduce(
+			(acc, curr) => acc + +curr.cartQuantity,
+			0
+		);
+		const TotalCost = cart.reduce((acc, curr) => acc + +curr.price, 0);
 		return (
 			<div>
 				{cart.length === 0 ? (
@@ -18,6 +22,7 @@ export class Order extends Component {
 				) : (
 					<>
 						<h1>Here's your order</h1>
+						<h3>Price at checkout: ${TotaQuantity * TotalCost}</h3>
 						<div>
 							{cart.map((product) => (
 								<div key={product.id}>
