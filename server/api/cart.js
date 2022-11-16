@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const { Order, User, Coffee, OrderCoffee } = require('../db');
+const router = require("express").Router();
+const { Order, User, Coffee, OrderCoffee } = require("../db");
 
 const requireToken = async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-router.get('/:id', requireToken, async (req, res, next) => {
+router.get("/:id", requireToken, async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
@@ -32,7 +32,7 @@ router.get('/:id', requireToken, async (req, res, next) => {
 });
 
 // We will use this route to eventually create the OrderCoffee through table instances
-router.post('/:id', requireToken, async (req, res, next) => {
+router.post("/:id", requireToken, async (req, res, next) => {
   try {
     const reduxCart = req.body;
     const loggedUserId = req.user.id;
@@ -55,6 +55,27 @@ router.post('/:id', requireToken, async (req, res, next) => {
     res
       .status(200)
       .send(`Completed creating cart items for cart ${userCartId}`);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", requireToken, async (req, res, next) => {
+  try {
+    const loggedUserId = req.user.id;
+    const userCart = await Order.findOne({
+      where: {
+        userId: loggedUserId,
+        completed: false,
+      },
+    });
+    const userCartId = userCart.id;
+    await OrderCoffee.destroy({
+      where: {
+        orderId: userCartId,
+      },
+    });
+    res.status(200).send(`Deleted cart ${userCartId}`);
   } catch (error) {
     next(error);
   }
