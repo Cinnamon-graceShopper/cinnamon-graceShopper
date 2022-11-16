@@ -6,16 +6,17 @@ a {
   text-decoration: none;
 }
 
-label {
+/* label {
   display: block;
-}
+} */
 
 nav a {
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
   margin: 1em;
 }
 
 form div {
   margin: 1em;
-  display: inline-block;
+  /* display: inline-block; */
 }

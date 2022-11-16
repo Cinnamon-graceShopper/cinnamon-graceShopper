@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Coffee = require('../db/models/Coffee');
+const User = require('../db/models/User');
 
 /* COFFEE PRODUCT EXAMPLE
 	{
@@ -11,6 +12,23 @@ const Coffee = require('../db/models/Coffee');
 		quantity: INTEGER,
 	}
 */
+
+//Checking for valid Admin Rights
+router.use('*', async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+
+    if (user.Role === 'ADMIN') {
+      next();
+    } else {
+      return 'You do not have access to perform this action.';
+    }
+  } catch (error) {
+    console.log('You do not have a valid token.');
+    next(error);
+  }
+});
 
 //This route will create a brand new coffee product
 router.post('/', async (req, res, next) => {
@@ -79,7 +97,7 @@ router.delete('/:id', async (req, res, next) => {
       return res.status(404).send('This CoffeeId does not exist');
     }
 
-    return res.status(200).send();
+    return res.status(200).send(`Removal of product #${coffeeId} completed`);
   } catch (error) {
     next(error);
   }

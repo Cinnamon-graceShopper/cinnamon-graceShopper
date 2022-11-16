@@ -3,7 +3,10 @@ import axios from 'axios';
 const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+
 const DECREMENT = 'DECREMENT'
+
+
 
 const _addCart = (coffee) => ({
 	type: ADD_CART,
@@ -60,6 +63,7 @@ export default function addCartReducer(state = initialState, action) {
           return [...state, tempProduct];
         }
 			return [...state];
+
         //Decrement is working
       case DECREMENT:
         reduceIndex = state.findIndex(item=> item.id == action.coffee )
@@ -70,6 +74,12 @@ export default function addCartReducer(state = initialState, action) {
            localStorage.setItem('cart', JSON.stringify([...state]));
         }
         return [...state];
+
+		case REMOVE_PRODUCT:
+			const newArr = [...state];
+			const arr = newArr.filter((item) => item.id !== action.coffee.id);
+			localStorage.setItem('cart', JSON.stringify(arr));
+			return arr;
 		default:
 			return state;
 	}

@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { addCart } from '../store/Cart';
-import { createCart } from '../store/Cart';
+import { Button } from "@mui/material";
+import React from "react";
+import { connect } from "react-redux";
+import { addCart, createCart } from "../store/Cart";
 
 export class Cart extends React.Component {
-	constructor() {
-		super();
-		this.handleClick = this.handleClick.bind(this);
-		this.cartArray = [];
-	}
-	handleClick() {
+  constructor() {
+    super();
+    this.handleClick = this.handleClick.bind(this);
+    this.cartArray = [];
+  }
+  handleClick() {
 		const { isLoggedIn, id } = this.props;
 		let localArray;
 		if (!isLoggedIn) {
@@ -26,13 +26,16 @@ export class Cart extends React.Component {
 			});
 		}
 	}
-	render() {
-		return (
-			<div>
-				<button onClick={this.handleClick}>Add to Cart</button>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div>
+        <Button variant="contained" color="success" onClick={this.handleClick}>
+          Add to Cart
+        </Button>
+        {/* <button onClick={this.handleClick}>Add to Cart</button> */}
+      </div>
+    );
+  }
 }
 
 const mapState = (state) => ({
