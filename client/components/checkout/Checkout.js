@@ -8,30 +8,63 @@ class Checkout extends React.Component {
 
 	render() {
 		const cartItems = JSON.parse(localStorage.getItem('cart'));
-		const { cart } = this.props;
+		const { cart, isLoggedIn } = this.props;
 		return (
-			<>
-				<div>
-					<h1>Order Summary</h1>
-				</div>
-				<div>
-					<h1>Order Details</h1>
-					<div>
-						{cartItems.map((product) => (
-							<div key={product.id}>
-								<img src={product.image} style={{ height: 300, width: 300 }} />
-								<p>{product.productName}</p>
-								<p>${product.price}</p>
-								<p>Quantity: {product.cartQuantity}</p>
-								Item Price: ${product.price * product.cartQuantity}
-								<br />
-								<br />
-								<button>Checkout</button>
+			<div>
+				{isLoggedIn ? (
+					<>
+						<div>
+							<h1>Order Summary</h1>
+						</div>
+						<div>
+							<h1>Order Details</h1>
+							<div>
+								{cart.map((product) => (
+									<div key={product.id}>
+										<img
+											src={product.image}
+											style={{ height: 300, width: 300 }}
+										/>
+										<p>{product.productName}</p>
+										<p>${product.price}</p>
+										<p>Quantity: {product.cartQuantity}</p>
+										Item Price: ${product.price * product.cartQuantity}
+										<br />
+										<br />
+										<button>Checkout</button>
+									</div>
+								))}
 							</div>
-						))}
-					</div>
-				</div>
-			</>
+						</div>
+					</>
+				) : (
+					<>
+						<div>
+							<h1>Order Summary</h1>
+						</div>
+						<div>
+							<h1>Order Details</h1>
+							<div>
+								{cartItems.map((product) => (
+									<div key={product.id}>
+										<img
+											src={product.image}
+											style={{ height: 300, width: 300 }}
+										/>
+										<p>{product.productName}</p>
+										<p>${product.price}</p>
+										<p>Quantity: {product.cartQuantity}</p>
+										Item Price: ${product.price * product.cartQuantity}
+										<br />
+										<br />
+										<button>Checkout</button>
+									</div>
+								))}
+							</div>
+						</div>
+					</>
+				)}
+			</div>
 		);
 	}
 }
