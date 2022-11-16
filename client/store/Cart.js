@@ -3,7 +3,10 @@ import axios from 'axios';
 const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
+
+const DECREMENT = 'DECREMENT'
+
+
 
 const _addCart = (coffee) => ({
 	type: ADD_CART,
@@ -20,10 +23,11 @@ export const _removeProduct = (coffee) => ({
 	coffee,
 });
 
-// const _decreaseQuantity = (coffee) => ({
-// 	type: DECREASE_QUANTITY,
-// 	coffee,
-// });
+export const decrement = (coffee) => ({
+	type: DECREMENT,
+	coffee,
+});
+
 
 export const addCart = (id) => async (dispatch) => {
 	try {
@@ -44,21 +48,33 @@ export const createCart = (cart) => async (dispatch) => {
 };
 
 const initialState = [];
-let coffeeIndex, tempProduct;
+let coffeeIndex, tempProduct, reduceIndex;
 
 export default function addCartReducer(state = initialState, action) {
 	switch (action.type) {
 		case ADD_CART:
-			tempProduct = { ...action.coffee, cartQuantity: 1 };
-			coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
-			if (coffeeIndex >= 0) {
-				state[coffeeIndex].cartQuantity += 1;
-				localStorage.setItem('cart', JSON.stringify([...state]));
-			} else {
-				localStorage.setItem('cart', JSON.stringify([...state, tempProduct]));
-				return [...state, tempProduct];
-			}
+        tempProduct = { ...action.coffee, cartQuantity: 1 };
+        coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
+        if (coffeeIndex >= 0) {
+          state[coffeeIndex].cartQuantity += 1;
+          localStorage.setItem('cart', JSON.stringify([...state]));
+        } else {
+          localStorage.setItem('cart', JSON.stringify([...state, tempProduct]));
+          return [...state, tempProduct];
+        }
 			return [...state];
+
+        //Decrement is working
+      case DECREMENT:
+        reduceIndex = state.findIndex(item=> item.id == action.coffee )
+        console.log( state)
+        if(state[reduceIndex].cartQuantity > 1){
+
+          state[reduceIndex].cartQuantity -= 1
+           localStorage.setItem('cart', JSON.stringify([...state]));
+        }
+        return [...state];
+
 		case REMOVE_PRODUCT:
 			const newArr = [...state];
 			const arr = newArr.filter((item) => item.id !== action.coffee.id);
@@ -68,6 +84,15 @@ export default function addCartReducer(state = initialState, action) {
 			return state;
 	}
 }
+
+
+
+
+
+
+
+
+
 
 // case CREATE_CART:
 // 	return [...state, action.coffee];
