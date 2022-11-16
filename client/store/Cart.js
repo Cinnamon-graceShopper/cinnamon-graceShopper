@@ -3,7 +3,9 @@ import axios from 'axios';
 const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
-const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
+//const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
+const GET_ITEMS = 'GET_ITEMS';
+const EMPTY_CART = 'EMPTY_CART';
 
 const _addCart = (coffee) => ({
 	type: ADD_CART,
@@ -19,6 +21,10 @@ export const _removeProduct = (coffee) => ({
 	type: REMOVE_PRODUCT,
 	coffee,
 });
+
+export const emptyCart = () => ({ type: EMPTY_CART });
+
+export const getItems = () => ({ type: GET_ITEMS });
 
 // const _decreaseQuantity = (coffee) => ({
 // 	type: DECREASE_QUANTITY,
@@ -43,6 +49,16 @@ export const createCart = (cart) => async (dispatch) => {
 	}
 };
 
+// export const submitOrder = () => async (dispatch) => {
+// 	try {
+// 		const { data } = await axios.post('/api/checkout/');
+// 		await axios.delete(`/api/checkout`);
+// 		dispatch(submitOrder(data));
+// 	} catch (err) {
+// 		console.error(err);
+// 	}
+// };
+
 const initialState = [];
 let coffeeIndex, tempProduct;
 
@@ -64,6 +80,8 @@ export default function addCartReducer(state = initialState, action) {
 			const arr = newArr.filter((item) => item.id !== action.coffee.id);
 			localStorage.setItem('cart', JSON.stringify(arr));
 			return arr;
+		case EMPTY_CART:
+			return initialState;
 		default:
 			return state;
 	}

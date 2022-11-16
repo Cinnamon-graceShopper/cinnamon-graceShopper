@@ -8,6 +8,7 @@ import CoffeeList from './components/CoffeeList';
 import SingleCoffee from './components/SingleCoffee';
 import Order from './components/Order';
 import { Signup } from './components/SignUpForm';
+import Checkout from './components/checkout/Checkout';
 
 /**
  * COMPONENT
@@ -39,6 +40,7 @@ class Routes extends Component {
 						<Route path='/order' component={Order} />
 						<Route exact path='/coffees' component={CoffeeList} />
 						<Route path='/coffees/:id' component={SingleCoffee} />
+						<Route path='/checkout' component={Checkout} />
 					</Switch>
 				)}
 			</div>
