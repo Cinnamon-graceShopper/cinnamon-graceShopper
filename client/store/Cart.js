@@ -20,10 +20,10 @@ export const _removeProduct = (coffee) => ({
 	coffee,
 });
 
-const _decreaseQuantity = (coffee) => ({
-	type: DECREASE_QUANTITY,
-	coffee,
-});
+// const _decreaseQuantity = (coffee) => ({
+// 	type: DECREASE_QUANTITY,
+// 	coffee,
+// });
 
 export const addCart = (id) => async (dispatch) => {
 	try {

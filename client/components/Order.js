@@ -6,17 +6,17 @@ export class Order extends Component {
 	render() {
 		const cart =
 			typeof localStorage.cart === 'undefined'
-				? null
+				? []
 				: JSON.parse(localStorage.cart);
 		const { addCart, removeProduct, increment } = this.props;
 		console.log(this.props.cart);
 		return (
 			<div>
-				{cart === null ? (
-					<h3>Your cart is empty!</h3>
+				{cart.length === 0 ? (
+					<h1>Your cart is empty!</h1>
 				) : (
 					<>
-						<h1>Here's your current order</h1>
+						<h1>Here's your order</h1>
 						<div>
 							{cart.map((product) => (
 								<div key={product.id}>
