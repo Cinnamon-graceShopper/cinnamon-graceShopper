@@ -60,6 +60,7 @@ export default function addCartReducer(state = initialState, action) {
           return [...state, tempProduct];
         }
 			return [...state];
+        //Decrement is working
       case DECREMENT:
         reduceIndex = state.findIndex(item=> item.id == action.coffee )
         console.log( state)
