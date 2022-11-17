@@ -30,7 +30,17 @@ export class Cart extends React.Component {
         coffeePrice: this.props.coffee.price,
         orderQuantity: 1,
       };
-      const currentStore = [...this.props.loggedCart, coffeeFormat];
+
+      let currentStore = [...this.props.loggedCart];
+      const coffeeIndex = currentStore.findIndex(
+        (item) => item.coffeeId === this.props.coffee.id
+      );
+      if (coffeeIndex >= 0) {
+        currentStore[coffeeIndex].orderQuantity += 1;
+      } else {
+        currentStore = [...currentStore, coffeeFormat];
+      }
+
       this.props.updateDatabase(userId, token, currentStore);
     }
   }
