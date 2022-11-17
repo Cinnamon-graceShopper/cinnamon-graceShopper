@@ -7,17 +7,18 @@ import auth from './auth';
 import allCoffeesReducer from './allCoffees';
 import singleCoffeeReducer from './singleCoffee';
 import addCartReducer from './Cart';
+import loggedCartReducer from './LoggedUserCart';
 //import quantityReducer from './orderQuantity';
 
 const reducer = combineReducers({
-	auth,
-	coffees: allCoffeesReducer,
-	coffee: singleCoffeeReducer,
-	cart: addCartReducer,
-	//quantity: quantityReducer,
+  auth,
+  coffees: allCoffeesReducer,
+  coffee: singleCoffeeReducer,
+  cart: addCartReducer,
+  loggedCart: loggedCartReducer,
 });
 const middleware = composeWithDevTools(
-	applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
+  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
 const store = createStore(reducer, middleware);
 

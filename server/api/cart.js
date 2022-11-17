@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const { Order, User, Coffee, OrderCoffee } = require("../db");
+const router = require('express').Router();
+const { Order, User, Coffee, OrderCoffee } = require('../db');
 
 const requireToken = async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-router.get("/:id", requireToken, async (req, res, next) => {
+router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const cart = await Order.findOne({
       where: {
@@ -32,7 +32,7 @@ router.get("/:id", requireToken, async (req, res, next) => {
 });
 
 // We will use this route to eventually create the OrderCoffee through table instances
-router.post("/:id", requireToken, async (req, res, next) => {
+router.post('/:id', requireToken, async (req, res, next) => {
   try {
     const reduxCart = req.body;
     const loggedUserId = req.user.id;
@@ -45,10 +45,10 @@ router.post("/:id", requireToken, async (req, res, next) => {
     const userCartId = userCart.id;
     reduxCart.forEach(async (product) => {
       const dataToSend = {
-        quantity: product.cartQuantity,
-        price: product.price,
+        quantity: product.orderQuantity,
+        price: product.coffeePrice,
         orderId: userCartId,
-        coffeeId: product.id,
+        coffeeId: product.coffeeId,
       };
       await OrderCoffee.create(dataToSend);
     });
@@ -60,7 +60,7 @@ router.post("/:id", requireToken, async (req, res, next) => {
   }
 });
 
-router.delete("/:id", requireToken, async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const loggedUserId = req.user.id;
     const userCart = await Order.findOne({
@@ -82,15 +82,3 @@ router.delete("/:id", requireToken, async (req, res, next) => {
 });
 
 module.exports = router;
-
-// We would need the USER ID to find ORDER ID where Complete: false
-
-// [{
-//   id: 3,
-//   price: "1.99",
-//   cartQuantity: 2
-// }, {
-//   id: 4,
-//   price: "1.99",
-//   cartQuantity: 5
-// }]

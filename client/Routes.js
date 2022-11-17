@@ -7,6 +7,7 @@ import { me } from './store';
 import CoffeeList from './components/CoffeeList';
 import SingleCoffee from './components/SingleCoffee';
 import Order from './components/Order';
+import LoggedOrder from './components/LoggedOrder';
 import { Signup } from './components/SignUpForm';
 import Checkout from './components/checkout/Checkout';
 import PurchaseConfirmed from './components/checkout/PurchasedConfirmation';
@@ -15,13 +16,12 @@ import PurchaseConfirmed from './components/checkout/PurchasedConfirmation';
  * COMPONENT
  */
 class Routes extends Component {
-	componentDidMount() {
-		this.props.loadInitialData();
-	}
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
 
-	render() {
-		const { isLoggedIn } = this.props;
-
+  render() {
+    const { isLoggedIn } = this.props;
 		return (
 			<div>
 				{isLoggedIn ? (
@@ -48,25 +48,26 @@ class Routes extends Component {
 			</div>
 		);
 	}
+
 }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
-	return {
-		// Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-		// Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-		isLoggedIn: !!state.auth.id,
-	};
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
+    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
+    isLoggedIn: !!state.auth.id,
+  };
 };
 
 const mapDispatch = (dispatch) => {
-	return {
-		loadInitialData() {
-			dispatch(me());
-		},
-	};
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked

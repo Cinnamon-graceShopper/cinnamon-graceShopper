@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addCart, _removeProduct } from '../store/Cart';
+import { addCart, _removeProduct, decrement } from '../store/Cart';
 import { Link } from 'react-router-dom';
 
 export class Order extends Component {
@@ -36,6 +36,7 @@ export class Order extends Component {
 									<br />
 									<small>Order Quantity: {product.cartQuantity}</small>
 									<button onClick={() => addCart(product.id)}>+</button>
+                  <button onClick={() => decrement(product.id)}>-</button>
 									<button onClick={() => removeProduct(product)}>REMOVE</button>
 									<br />
 									<br />
@@ -52,14 +53,16 @@ export class Order extends Component {
 	}
 }
 
+
 const mapState = (state) => ({
-	cart: state.cart,
+  cart: state.cart,
 });
 
 const mapDispatch = (dispatch) => ({
-	addCart: (id) => dispatch(addCart(id)),
-	removeProduct: (product) => dispatch(_removeProduct(product)),
-	increment: (coffeeId) => dispatch(incrementQuantity(coffeeId)),
+  addCart: (id) => dispatch(addCart(id)),
+  removeProduct: (product) => dispatch(_removeProduct(product)),
+  increment: (coffeeId) => dispatch(incrementQuantity(coffeeId)),
+  decrement: (id) => dispatch(decrement(id)),
 });
 
 export default connect(mapState, mapDispatch)(Order);

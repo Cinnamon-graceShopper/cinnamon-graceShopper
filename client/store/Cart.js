@@ -3,41 +3,50 @@ import axios from 'axios';
 const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+
 const EMPTY_CART = 'EMPTY_CART';
+const DECREMENT = 'DECREMENT';
+
 
 const _addCart = (coffee) => ({
-	type: ADD_CART,
-	coffee,
+  type: ADD_CART,
+  coffee,
 });
 
 const _createCart = (coffee) => ({
-	type: CREATE_CART,
-	coffee,
+  type: CREATE_CART,
+  coffee,
 });
 
 export const _removeProduct = (coffee) => ({
-	type: REMOVE_PRODUCT,
-	coffee,
+  type: REMOVE_PRODUCT,
+  coffee,
 });
 
 export const _emptyCart = () => ({ type: EMPTY_CART });
 
+export const decrement = (coffee) => ({
+  type: DECREMENT,
+  coffee,
+});
+
+
 export const addCart = (id) => async (dispatch) => {
-	try {
-		const { data } = await axios.get(`/api/coffees/${id}`);
-		dispatch(_addCart(data));
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    const { data } = await axios.get(`/api/coffees/${id}`);
+    dispatch(_addCart(data));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const createCart = (cart) => async (dispatch) => {
-	try {
-		const { data: created } = await axios.post('/api/cart', cart);
-		dispatch(_createCart(created));
-	} catch (error) {
-		console.error(error);
-	}
+  try {
+    const { data: created } = await axios.post('/api/cart', cart);
+    dispatch(_createCart(created));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // export const submitOrder = () => async (dispatch) => {
@@ -51,7 +60,7 @@ export const createCart = (cart) => async (dispatch) => {
 // };
 
 const initialState = [];
-let coffeeIndex, tempProduct;
+let coffeeIndex, tempProduct, reduceIndex;
 
 export default function addCartReducer(state = initialState, action) {
 	switch (action.type) {
@@ -71,10 +80,19 @@ export default function addCartReducer(state = initialState, action) {
 			const arr = newArr.filter((item) => item.id !== action.coffee.id);
 			localStorage.setItem('cart', JSON.stringify(arr));
 			return arr;
+     case DECREMENT:
+      reduceIndex = state.findIndex((item) => item.id == action.coffee);
+
+      if (state[reduceIndex].cartQuantity > 1) {
+        state[reduceIndex].cartQuantity -= 1;
+        localStorage.setItem('cart', JSON.stringify([...state]));
+      }
+      return [...state];
 		case EMPTY_CART:
 			localStorage.clear();
 			return initialState;
 		default:
 			return state;
 	}
+
 }
