@@ -4,7 +4,6 @@ import { addCart, _removeProduct, incrementQuantity, decrement } from '../store/
 
 export class Order extends Component {
 
-
 	render() {
 
 		const cart =
@@ -47,7 +46,7 @@ export class Order extends Component {
 }
 
 const mapState = (state) => ({
-	cart: state.cart,
+  cart: state.cart,
 });
 
 const mapDispatch = (dispatch) => ({
