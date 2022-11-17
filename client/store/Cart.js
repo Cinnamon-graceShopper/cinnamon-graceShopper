@@ -1,12 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
-const ADD_CART = 'ADD_CART';
-const CREATE_CART = 'CREATE_CART';
-const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+const ADD_CART = "ADD_CART";
+const CREATE_CART = "CREATE_CART";
+const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 
-const EMPTY_CART = 'EMPTY_CART';
-const DECREMENT = 'DECREMENT';
-
+const EMPTY_CART = "EMPTY_CART";
+const DECREMENT = "DECREMENT";
 
 const _addCart = (coffee) => ({
   type: ADD_CART,
@@ -30,7 +29,6 @@ export const decrement = (coffee) => ({
   coffee,
 });
 
-
 export const addCart = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/api/coffees/${id}`);
@@ -42,7 +40,7 @@ export const addCart = (id) => async (dispatch) => {
 
 export const createCart = (cart) => async (dispatch) => {
   try {
-    const { data: created } = await axios.post('/api/cart', cart);
+    const { data: created } = await axios.post("/api/cart", cart);
     dispatch(_createCart(created));
   } catch (error) {
     console.error(error);
@@ -63,36 +61,35 @@ const initialState = [];
 let coffeeIndex, tempProduct, reduceIndex;
 
 export default function addCartReducer(state = initialState, action) {
-	switch (action.type) {
-		case ADD_CART:
-			tempProduct = { ...action.coffee, cartQuantity: 1 };
-			coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
-			if (coffeeIndex >= 0) {
-				state[coffeeIndex].cartQuantity += 1;
-				localStorage.setItem('cart', JSON.stringify([...state]));
-			} else {
-				localStorage.setItem('cart', JSON.stringify([...state, tempProduct]));
-				return [...state, tempProduct];
-			}
-			return [...state];
-		case REMOVE_PRODUCT:
-			const newArr = [...state];
-			const arr = newArr.filter((item) => item.id !== action.coffee.id);
-			localStorage.setItem('cart', JSON.stringify(arr));
-			return arr;
-     case DECREMENT:
+  switch (action.type) {
+    case ADD_CART:
+      tempProduct = { ...action.coffee, cartQuantity: 1 };
+      coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
+      if (coffeeIndex >= 0) {
+        state[coffeeIndex].cartQuantity += 1;
+        localStorage.setItem("cart", JSON.stringify([...state]));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([...state, tempProduct]));
+        return [...state, tempProduct];
+      }
+      return [...state];
+    case REMOVE_PRODUCT:
+      const newArr = [...state];
+      const arr = newArr.filter((item) => item.id !== action.coffee.id);
+      localStorage.setItem("cart", JSON.stringify(arr));
+      return arr;
+    case DECREMENT:
       reduceIndex = state.findIndex((item) => item.id == action.coffee);
 
       if (state[reduceIndex].cartQuantity > 1) {
         state[reduceIndex].cartQuantity -= 1;
-        localStorage.setItem('cart', JSON.stringify([...state]));
+        localStorage.setItem("cart", JSON.stringify([...state]));
       }
       return [...state];
-		case EMPTY_CART:
-			localStorage.clear();
-			return initialState;
-		default:
-			return state;
-	}
-
+    case EMPTY_CART:
+      localStorage.clear();
+      return initialState;
+    default:
+      return state;
+  }
 }

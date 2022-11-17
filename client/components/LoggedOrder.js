@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   removeProduct,
   increment,
   decrementLog,
   updateDatabase,
   setLoggedUserState,
-} from '../store/LoggedUserCart';
+} from "../store/LoggedUserCart";
+import { Link } from "react-router-dom";
 
 export class LoggedOrder extends Component {
   componentDidMount() {
     const userId = this.props.auth.id;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     this.props.setLoggedUserState(userId, token);
   }
 
   render() {
     const userId = this.props.auth.id;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return (
       <div>
         {this.props.cart.length === 0 ? (
@@ -66,6 +67,9 @@ export class LoggedOrder extends Component {
                   </button>
                   <br />
                   <br />
+                  <Link to="/checkout">
+                    <button>Proceed to Checkout</button>
+                  </Link>
                 </div>
               ))}
             </div>
