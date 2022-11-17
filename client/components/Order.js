@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addCart, _removeProduct, decrement } from "../store/Cart";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addCart, _removeProduct, decrement } from '../store/Cart';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 export class Order extends Component {
   render() {
     const cart =
-      typeof localStorage.cart === "undefined"
+      typeof localStorage.cart === 'undefined'
         ? []
         : JSON.parse(localStorage.cart);
     const { addCart, removeProduct, decrement } = this.props;
@@ -43,7 +44,9 @@ export class Order extends Component {
                 </div>
               ))}
               <Link to="/checkout">
-                <button>Proceed to Checkout</button>
+                <Button variant="contained" color="success">
+                  Proceed to Checkout
+                </Button>
               </Link>
             </div>
           </>

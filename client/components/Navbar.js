@@ -58,7 +58,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/coffees">
                 <Button variant="contained">Coffees</Button>
               </Link>
-              <Link to="/order">Order</Link>
+              <Link to="/order">
+                <Button variant="contained">Order</Button>
+              </Link>
             </ProductList>
           </div>
         )}

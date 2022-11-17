@@ -1,7 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { _emptyCart } from "../../store/Cart";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { _emptyCart } from '../../store/Cart';
+import { Button } from '@mui/material';
 
 class Checkout extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const cartItems = JSON.parse(localStorage.getItem("cart"));
+    const cartItems = JSON.parse(localStorage.getItem('cart'));
     const { cart, isLoggedIn, empty, loggedCart } = this.props;
     const guestTotaQuantity = cartItems.reduce(
       (acc, curr) => acc + +curr.cartQuantity,
@@ -44,7 +45,9 @@ class Checkout extends React.Component {
                   </div>
                 ))}
                 <Link to="/confirm">
-                  <button>Checkout</button>
+                  <Button variant="contained" color="success">
+                    Checkout
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -73,7 +76,13 @@ class Checkout extends React.Component {
                   </div>
                 ))}
                 <Link to="/confirm">
-                  <button onClick={() => empty()}>Checkout</button>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={() => empty()}
+                  >
+                    Checkout
+                  </Button>
                 </Link>
               </div>
             </div>
