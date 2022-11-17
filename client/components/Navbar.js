@@ -12,7 +12,7 @@ import { logout } from '../store';
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <AppbarContainer>
-      <AppbarHeader>Cawfee Tawk Shawp</AppbarHeader>
+      <AppbarHeader>The Coffee Shop</AppbarHeader>
       <nav>
         {isLoggedIn ? (
           <div>
