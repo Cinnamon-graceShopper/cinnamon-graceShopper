@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   removeProduct,
   increment,
-  decrement,
+  decrementLog,
   updateDatabase,
   setLoggedUserState,
 } from '../store/LoggedUserCart';
@@ -83,7 +83,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => ({
   incrementProp: (coffeeId) => dispatch(increment(coffeeId)),
-  decrementProp: (coffeeId) => dispatch(decrement(coffeeId)),
+  decrementProp: (coffeeId) => dispatch(decrementLog(coffeeId)),
   removeProduct: (coffeeId) => dispatch(removeProduct(coffeeId)),
   updateDatabase: (userId, token, currentStore) =>
     dispatch(updateDatabase(userId, token, currentStore)),

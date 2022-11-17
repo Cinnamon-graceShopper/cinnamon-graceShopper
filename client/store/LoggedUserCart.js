@@ -3,7 +3,7 @@ import axios from 'axios';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
+const DECREMENTLOG = 'DECREMENTLOG';
 const LOGGED_USER = 'LOGGED_USER';
 
 const _addProduct = (coffee) => ({
@@ -22,7 +22,7 @@ const _increment = (coffeeId) => ({
 });
 
 const _decrement = (coffeeId) => ({
-  type: DECREMENT,
+  type: DECREMENTLOG,
   coffeeId,
 });
 
@@ -39,7 +39,7 @@ export const removeProduct = (coffee) => async (dispatch) => {
   dispatch(_removeProduct(coffee));
 };
 
-export const decrement = (coffeeId) => async (dispatch) => {
+export const decrementLog = (coffeeId) => async (dispatch) => {
   dispatch(_decrement(coffeeId));
 };
 
@@ -144,7 +144,7 @@ export default function loggedCartReducer(state = initialState, action) {
       incrementCopy[coffeeIndex].orderQuantity += 1;
       return [...incrementCopy];
 
-    case DECREMENT:
+    case DECREMENTLOG:
       decrementCopy = [...state];
       coffeeIndex = decrementCopy.findIndex(
         (item) => item.coffeeId === action.coffeeId

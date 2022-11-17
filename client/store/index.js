@@ -16,7 +16,6 @@ const reducer = combineReducers({
   coffee: singleCoffeeReducer,
   cart: addCartReducer,
   loggedCart: loggedCartReducer,
-  //quantity: quantityReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
