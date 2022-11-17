@@ -5,7 +5,7 @@ import Coffee from './Coffee';
 import Cart from './AddToCart';
 import { Grid } from '@mui/material';
 
-export class CoffeeList extends Component {
+export class CoffeeList extends Component 
   componentDidMount() {
     this.props.getCoffees();
   }
@@ -22,11 +22,9 @@ export class CoffeeList extends Component {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             {coffees.map((coffee) => (
-              <Grid item xs={2} sm={4} md={4} key={coffee.id}>
-                {/* <div key={coffee.id}> */}
+              <Grid item xs={2} sm={4} md={4} key={coffee.id}>            
                 <Coffee coffee={coffee} />
-                <Cart coffee={coffee} coffeeId={coffee.id} />
-                {/* </div> */}
+                <Cart coffee={coffee} coffeeId={coffee.id} />        
               </Grid>
             ))}
           </Grid>
@@ -34,6 +32,7 @@ export class CoffeeList extends Component {
       </div>
     );
   }
+
 }
 
 const mapState = (state) => ({

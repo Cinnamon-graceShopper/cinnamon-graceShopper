@@ -9,6 +9,8 @@ import SingleCoffee from './components/SingleCoffee';
 import Order from './components/Order';
 import LoggedOrder from './components/LoggedOrder';
 import { Signup } from './components/SignUpForm';
+import Checkout from './components/checkout/Checkout';
+import PurchaseConfirmed from './components/checkout/PurchasedConfirmation';
 
 /**
  * COMPONENT
@@ -20,32 +22,33 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+		return (
+			<div>
+				{isLoggedIn ? (
+					<Switch>
+						<Route path='/home' component={Home} />
+						<Route exact path='/coffees' component={CoffeeList} />
+						<Route path='/coffees/:id' component={SingleCoffee} />
+						<Route path='/signup'>
+							<Redirect to='/home' />
+						</Route>
+					</Switch>
+				) : (
+					<Switch>
+						<Route path='/' exact component={Login} />
+						<Route path='/login' component={Login} />
+						<Route path='/signup' component={Signup} />
+						<Route path='/order' component={Order} />
+						<Route exact path='/coffees' component={CoffeeList} />
+						<Route path='/coffees/:id' component={SingleCoffee} />
+						<Route path='/checkout' component={Checkout} />
+						<Route path='/confirm' component={PurchaseConfirmed} />
+					</Switch>
+				)}
+			</div>
+		);
+	}
 
-    return (
-      <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path="/coffees" component={CoffeeList} />
-            <Route path="/coffees/:id" component={SingleCoffee} />
-            <Route path="/signup">
-              <Redirect to="/home" />
-            </Route>
-            <Route path="/loggedorder" component={LoggedOrder} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/order" component={Order} />
-            <Route exact path="/coffees" component={CoffeeList} />
-            <Route path="/coffees/:id" component={SingleCoffee} />
-          </Switch>
-        )}
-      </div>
-    );
-  }
 }
 
 /**

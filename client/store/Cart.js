@@ -4,7 +4,9 @@ const ADD_CART = 'ADD_CART';
 const CREATE_CART = 'CREATE_CART';
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 
+const EMPTY_CART = 'EMPTY_CART';
 const DECREMENT = 'DECREMENT';
+
 
 const _addCart = (coffee) => ({
   type: ADD_CART,
@@ -21,10 +23,13 @@ export const _removeProduct = (coffee) => ({
   coffee,
 });
 
+export const _emptyCart = () => ({ type: EMPTY_CART });
+
 export const decrement = (coffee) => ({
   type: DECREMENT,
   coffee,
 });
+
 
 export const addCart = (id) => async (dispatch) => {
   try {
@@ -44,25 +49,38 @@ export const createCart = (cart) => async (dispatch) => {
   }
 };
 
+// export const submitOrder = () => async (dispatch) => {
+// 	try {
+// 		const { data } = await axios.post('/api/checkout/');
+// 		await axios.delete(`/api/checkout`);
+// 		dispatch(submitOrder(data));
+// 	} catch (err) {
+// 		console.error(err);
+// 	}
+// };
+
 const initialState = [];
 let coffeeIndex, tempProduct, reduceIndex;
 
 export default function addCartReducer(state = initialState, action) {
-  switch (action.type) {
-    case ADD_CART:
-      tempProduct = { ...action.coffee, cartQuantity: 1 };
-      coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
-      if (coffeeIndex >= 0) {
-        state[coffeeIndex].cartQuantity += 1;
-        localStorage.setItem('cart', JSON.stringify([...state]));
-      } else {
-        localStorage.setItem('cart', JSON.stringify([...state, tempProduct]));
-        return [...state, tempProduct];
-      }
-      return [...state];
-
-    //Decrement is working
-    case DECREMENT:
+	switch (action.type) {
+		case ADD_CART:
+			tempProduct = { ...action.coffee, cartQuantity: 1 };
+			coffeeIndex = state.findIndex((item) => item.id === action.coffee.id);
+			if (coffeeIndex >= 0) {
+				state[coffeeIndex].cartQuantity += 1;
+				localStorage.setItem('cart', JSON.stringify([...state]));
+			} else {
+				localStorage.setItem('cart', JSON.stringify([...state, tempProduct]));
+				return [...state, tempProduct];
+			}
+			return [...state];
+		case REMOVE_PRODUCT:
+			const newArr = [...state];
+			const arr = newArr.filter((item) => item.id !== action.coffee.id);
+			localStorage.setItem('cart', JSON.stringify(arr));
+			return arr;
+     case DECREMENT:
       reduceIndex = state.findIndex((item) => item.id == action.coffee);
 
       if (state[reduceIndex].cartQuantity > 1) {
@@ -70,13 +88,11 @@ export default function addCartReducer(state = initialState, action) {
         localStorage.setItem('cart', JSON.stringify([...state]));
       }
       return [...state];
+		case EMPTY_CART:
+			localStorage.clear();
+			return initialState;
+		default:
+			return state;
+	}
 
-    case REMOVE_PRODUCT:
-      const newArr = [...state];
-      const arr = newArr.filter((item) => item.id !== action.coffee.id);
-      localStorage.setItem('cart', JSON.stringify(arr));
-      return arr;
-    default:
-      return state;
-  }
 }
