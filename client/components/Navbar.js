@@ -1,13 +1,13 @@
-import { Button, ListItemText } from "@mui/material";
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Button, ListItemText } from '@mui/material';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   AppbarContainer,
   AppbarHeader,
   ProductList,
-} from "../../styles/navbar";
-import { logout } from "../store";
+} from '../../styles/navbar';
+import { logout } from '../store';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
@@ -25,7 +25,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
                 <Button
                   variant="contained"
                   style={{
-                    backgroundColor: "#EF1836",
+                    backgroundColor: '#EF1836',
                   }}
                 >
                   Logout
@@ -35,6 +35,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               {/* Added path '/coffees' to Navbar */}
               <Link to="/coffees">
                 <Button variant="contained">Coffees</Button>
+              </Link>
+
+              <Link to="/loggedorder">
+                <Button variant="contained">Order</Button>
               </Link>
             </ProductList>
           </div>
@@ -54,7 +58,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Link to="/coffees">
                 <Button variant="contained">Coffees</Button>
               </Link>
-              <Link to='/order'>Order</Link>
+              <Link to="/order">Order</Link>
             </ProductList>
           </div>
         )}
@@ -68,17 +72,17 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  * CONTAINER
  */
 const mapState = (state) => {
-	return {
-		isLoggedIn: !!state.auth.id,
-	};
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
 };
 
 const mapDispatch = (dispatch) => {
-	return {
-		handleClick() {
-			dispatch(logout());
-		},
-	};
+  return {
+    handleClick() {
+      dispatch(logout());
+    },
+  };
 };
 
 export default connect(mapState, mapDispatch)(Navbar);
